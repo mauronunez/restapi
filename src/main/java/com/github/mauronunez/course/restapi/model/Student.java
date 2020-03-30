@@ -15,6 +15,7 @@ import lombok.Data;
 public class Student {
 
 	@Id
+	@RutConstraint
 	@NotNull
 	private String rut;
 	@NotNull
