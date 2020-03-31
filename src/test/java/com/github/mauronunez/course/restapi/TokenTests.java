@@ -1,13 +1,31 @@
 package com.github.mauronunez.course.restapi;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-class RestapiApplicationTests {
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+
+import com.github.mauronunez.course.restapi.controller.TokenController;
+
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(TokenController.class)
+public class TokenTests {
+
+	@Autowired
+	private MockMvc mvc;
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
+	}
+
+	@Test
+	public void exampleTest() throws Exception {
+		this.mvc.perform(get("/token")).andExpect(status().isOk());
 	}
 
 }
