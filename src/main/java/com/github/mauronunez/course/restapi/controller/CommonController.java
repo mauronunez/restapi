@@ -2,6 +2,8 @@ package com.github.mauronunez.course.restapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +29,9 @@ public class CommonController<K,T> {
 		return commonService.byId(id);
 	}
 	
-	@PostMapping public void create(@RequestBody T course) {
+	@PostMapping public ResponseEntity<Void> create(@RequestBody T course) {
 		commonService.create(course);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}") public void update(@PathVariable("id") K id, @RequestBody T course) {
