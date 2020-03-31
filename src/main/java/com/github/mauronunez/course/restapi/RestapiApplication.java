@@ -14,6 +14,9 @@ import com.github.mauronunez.course.restapi.security.JWTAuthorizationFilter;
 
 @SpringBootApplication
 public class RestapiApplication {
+
+	@Value("${jwt.secret}")
+	private String secret;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(RestapiApplication.class, args);
@@ -26,6 +29,7 @@ public class RestapiApplication {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http.csrf().disable()
+				.addFilterAfter(new JWTAuthorizationFilter(secret), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
 				.antMatchers(HttpMethod.GET, "/token").permitAll()
 				.anyRequest().authenticated();
